@@ -1,101 +1,116 @@
-// Referências aos elementos
 const books = {};
 let selectedRating = 0;
 
-// Adiciona event listeners aos formulários
-document.getElementById('book-form').addEventListener('submit', addBook);
-document.getElementById('rating-form').addEventListener('submit', addRating);
+// Elementos
+const bookSelector = document.getElementById('book-selector');
+const bookList = document.getElementById('book-list');
+const ratingStars = document.querySelectorAll('.star-rating .star');
 
-// Adicionar Livro
+// Adiciona event listeners
+document.getElementById('book-form').addEventListener('submit', addBook);
+document.getElementById('rating-form').addEventListener('submit', saveRating);
+
+// Função para adicionar um livro
 function addBook(e) {
     e.preventDefault();
-
     const title = document.getElementById('title').value;
     const author = document.getElementById('author').value;
 
     if (title && author) {
         books[title] = { author, rating: 0 };
         updateBookList();
-        clearForm('book-form');
+        updateBookSelector();
+        document.getElementById('book-form').reset();
     }
 }
 
-// Avaliar Livro
-function addRating(e) {
+// Função para salvar a avaliação
+function saveRating(e) {
     e.preventDefault();
+    const selectedBook = bookSelector.value;
 
-    const title = document.getElementById('book-title').value;
-
-    if (books[title]) {
-        books[title].rating = selectedRating; // Atualiza a avaliação do livro
+    if (selectedBook && books[selectedBook]) {
+        books[selectedBook].rating = selectedRating;
         updateBookList();
-        clearForm('rating-form');
         resetStars();
-    } else {
-        alert('Livro não encontrado. Por favor, cadastre o livro primeiro.');
+        alert(`Avaliação do livro "${selectedBook}" atualizada para ${selectedRating} estrelas.`);
     }
 }
 
-// Atualizar Lista de Livros
+// Atualiza a lista de livros cadastrados
 function updateBookList() {
-    const bookList = document.getElementById('book-list');
     bookList.innerHTML = '';
-
     for (const title in books) {
-        const book = books[title];
+        const { author, rating } = books[title];
         const bookItem = document.createElement('div');
         bookItem.classList.add('book-item');
         bookItem.innerHTML = `
             <strong>Título:</strong> ${title}<br>
-            <strong>Autor:</strong> ${book.author}<br>
-            <strong>Avaliação:</strong> ${'⭐'.repeat(book.rating)}
+            <strong>Autor:</strong> ${author}<br>
+            <strong>Avaliação:</strong> ${'⭐'.repeat(rating)} (${rating}/5)
         `;
         bookList.appendChild(bookItem);
     }
 }
 
-// Limpa o formulário
-function clearForm(formId) {
-    document.getElementById(formId).reset();
+// Atualiza o seletor de livros na seção de avaliação
+function updateBookSelector() {
+    bookSelector.innerHTML = '<option value="" disabled selected>Escolha um livro</option>';
+    for (const title in books) {
+        const option = document.createElement('option');
+        option.value = title;
+        option.textContent = title;
+        bookSelector.appendChild(option);
+    }
 }
 
-// Funções de Estrelas
-const stars = document.querySelectorAll('.star-rating .star');
-
-// Adiciona event listeners para as estrelas
-stars.forEach(star => {
+// Controle de estrelas
+ratingStars.forEach(star => {
     star.addEventListener('click', () => {
-        selectedRating = star.getAttribute('data-value'); // Atualiza a avaliação selecionada
-        updateStars();
+        selectedRating = Number(star.getAttribute('data-value'));
+        updateStars(); // Atualiza as estrelas selecionadas
     });
 
     star.addEventListener('mouseover', () => {
-        highlightStars(star.getAttribute('data-value'));
+        highlightStars(star.getAttribute('data-value')); // Destaca as estrelas ao passar o mouse
     });
 
-    star.addEventListener('mouseleave', resetStars);
+    star.addEventListener('mouseleave', resetStars); // Reseta as estrelas quando o mouse sai
 });
 
-// Atualiza a visualização das estrelas
+// Atualiza visualmente as estrelas
 function updateStars() {
-    stars.forEach(star => {
-        // Adiciona a classe 'selected' às estrelas até o valor selecionado
-        star.classList.toggle('selected', star.getAttribute('data-value') <= selectedRating);
+    ratingStars.forEach(star => {
+        const starValue = Number(star.getAttribute('data-value'));
+
+        // Verifica se a estrela deve ser destacada (até o valor de selectedRating)
+        if (starValue <= selectedRating) {
+            star.classList.add('selected'); // Aplica a classe 'selected' às estrelas até selectedRating
+        } else {
+            star.classList.remove('selected'); // Remove a classe 'selected' das demais
+        }
     });
-    document.getElementById('selected-rating').textContent = selectedRating; // Atualiza a exibição da avaliação
+
+    // Atualiza o texto da avaliação
+    document.getElementById('selected-rating').textContent = selectedRating;
 }
 
 // Destaca as estrelas ao passar o mouse
 function highlightStars(rating) {
-    stars.forEach(star => {
-        star.classList.toggle('hover', star.getAttribute('data-value') <= rating);
+    ratingStars.forEach(star => {
+        const starValue = Number(star.getAttribute('data-value'));
+        if (starValue <= rating) {
+            star.classList.add('hover'); // Destaca até o valor do hover
+        } else {
+            star.classList.remove('hover');
+        }
     });
 }
 
 // Reseta as estrelas para o estado atual
 function resetStars() {
-    stars.forEach(star => {
-        star.classList.remove('hover');
+    ratingStars.forEach(star => {
+        star.classList.remove('hover'); // Remove o efeito hover
     });
-    updateStars(); // Atualiza para refletir a avaliação selecionada
+    updateStars(); // Atualiza as estrelas para refletir a seleção final
 }

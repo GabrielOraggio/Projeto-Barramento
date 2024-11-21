@@ -60,7 +60,7 @@ label {
     margin-bottom: 5px;
 }
 
-input, button {
+input, select, button {
     width: 100%;
     max-width: 400px;
     padding: 10px;
@@ -71,7 +71,7 @@ input, button {
     text-align: center;
 }
 
-input:focus {
+input:focus, select:focus {
     border-color: #b8860b;
     box-shadow: 0 0 5px rgba(184, 134, 11, 0.5);
 }
@@ -113,21 +113,25 @@ button:hover {
     color: #ccc;
 }
 
-/* Estilo da Lista de Livros */
-#book-list {
-    margin-top: 10px;
+
+/* Estilos para as estrelas */
+.star-rating .star {
+    color: #ccc;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
-.book-item {
-    padding: 15px;
-    margin-bottom: 10px;
-    background-color: #faf3e0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    color: #4a4a4a;
-    font-size: 1rem;
+.star-rating .star.selected {
+    color: #ffa500;  /* Amarelo */
 }
 
-.book-item strong {
-    color: #8b4513;
+.star-rating .star.hover {
+    color: #ffa500;  /* Amarelo no hover */
+}
+
+
+/* Ajustes para o seletor de livros */
+#book-selector {
+    text-align: left; /* Alinha o texto no seletor */
+    padding-left: 15px; /* Adiciona um espaçamento interno para o texto */
 }
