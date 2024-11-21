@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Biblioteca Virtual</h1>
+
+        <!-- Seção de Cadastro -->
+        <div class="section" id="form-section">
+            <h2>Cadastro de Livro</h2>
+            <form id="book-form">
+                <label for="title">Título do Livro</label>
+                <input type="text" id="title" placeholder="Ex: Dom Casmurro" required>
+                
+                <label for="author">Autor do Livro</label>
+                <input type="text" id="author" placeholder="Ex: Machado de Assis" required>
+                
+                <button type="submit">Cadastrar Livro</button>
+            </form>
+        </div>
+
+        <!-- Seção de Avaliação -->
+        <div class="section" id="rating-section">
+            <h2>Avaliação</h2>
+            <form id="rating-form">
+                <label for="book-title">Livro</label>
+                <input type="text" id="book-title" placeholder="Título do Livro para Avaliação" required>
+                
+                <label for="rating">Avaliação</label>
+                <div class="star-rating">
+                    <span class="star" data-value="1">&#9733;</span>
+                    <span class="star" data-value="2">&#9733;</span>
+                    <span class="star" data-value="3">&#9733;</span>
+                    <span class="star" data-value="4">&#9733;</span>
+                    <span class="star" data-value="5">&#9733;</span>
+                </div>
+                
+                <input type="hidden" id="rating" value="0">
+                <button type="submit">Avaliar Livro</button>
+            </form>
+            <p class="result">Você avaliou: <span id="selected-rating">0</span> estrelas</p>
+        </div>
+
+        <!-- Seção de Consulta -->
+        <div class="section" id="list-section">
+            <h2>Livros Cadastrados e Avaliados</h2>
+            <div id="book-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

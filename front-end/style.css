@@ -1,0 +1,133 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #fdf3e3; 
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center; 
+}
+
+h1 {
+    color: #4a4a4a;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+/* Seções */
+.section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9f7f2;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo dos Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+input, button {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 1rem;
+    text-align: center;
+}
+
+input:focus {
+    border-color: #b8860b;
+    box-shadow: 0 0 5px rgba(184, 134, 11, 0.5);
+}
+
+button {
+    background-color: #b8860b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    padding: 12px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #a5720f;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Avaliação com Estrelas */
+.star-rating {
+    display: flex;
+    gap: 5px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.star {
+    color: #ccc;
+    transition: color 0.3s;
+}
+
+.star.hover,
+.star.selected {
+    color: #ffa500; 
+}
+
+.star.selected ~ .star {
+    color: #ccc;
+}
+
+/* Estilo da Lista de Livros */
+#book-list {
+    margin-top: 10px;
+}
+
+.book-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #faf3e0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: #4a4a4a;
+    font-size: 1rem;
+}
+
+.book-item strong {
+    color: #8b4513;
+}
